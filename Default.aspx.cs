@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    protected double[] conv = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    protected List<double> conv = new List<double>();
     private const string connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Lab5DB.mdf;Integrated Security = True";
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,7 +20,7 @@ public partial class _Default : System.Web.UI.Page
         while (reader.Read())
         {
             double f = (double)reader["Factor"];
-            conv[i] = f;
+            conv.Add(f);
             i++;
         }
         conn.Close();
@@ -52,5 +52,10 @@ public partial class _Default : System.Web.UI.Page
                 ErrorBox.Visible = true;
             }
         }
+    }
+
+    protected void DBEdit_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Modify.aspx");
     }
 }
